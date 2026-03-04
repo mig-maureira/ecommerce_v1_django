@@ -118,8 +118,8 @@ http://127.0.0.1:8000/register/
 
 O utilizar estas credenciales sugeridas para pruebas:
 
-- **Usuario:** `cliente_test`  
-- **Contraseña:** `Prueba1234!`
+- **Usuario:** `blu`  
+- **Contraseña:** `root1234`
 
 ---
 
