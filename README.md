@@ -10,7 +10,7 @@ Sigue estas instrucciones para levantar el proyecto en tu entorno local:
 
 1. **Clonar el repositorio y acceder a la carpeta:**
 ```bash
-    git clone <url-de-tu-repositorio>
+    git clone https://github.com/mig-maureira/ecommerce_v1_django.git
     cd ecommerce 
 ```
    
