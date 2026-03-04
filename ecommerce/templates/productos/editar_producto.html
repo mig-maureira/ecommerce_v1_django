@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card-custom p-4 p-md-5">
+                <div class="text-center mb-4">
+                    <span class="section-subtitle">Gestión de Inventario</span>
+                    <h2 class="hero-title fs-2">Editar Producto</h2>
+                    <p class="text-muted small">Actualiza los detalles de tu producto artesanal.</p>
+                </div>
+
+                <form method="POST" enctype="multipart/form-data" class="registration-form-container">
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                        <div class="mb-3">
+                            {% if field.name == 'disponible' %}
+                                <div class="checkbox-wrapper p-2 border rounded d-flex align-items-center gap-2">
+                                    {{ field }}
+                                    <label class="form-label mb-0 fw-bold text-verde">{{ field.label }}</label>
+                                </div>
+                            {% else %}
+                                <label class="form-label small fw-bold text-verde">{{ field.label }}</label>
+                                {{ field }}
+                            {% endif %}
+                            
+                            {% if field.help_text %}
+                                <div class="form-text small">{{ field.help_text }}</div>
+                            {% endif %}
+                            {% for error in field.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn-alma-primary w-100">
+                            <i class="fas fa-save me-2"></i>Guardar Cambios
+                        </button>
+                        <a href="{% url 'mis_productos' %}" class="btn-alma-outline text-center">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

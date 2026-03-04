@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<header class="hero-section" id="inicio">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <span class="hero-subtitle span-margen-top">Cosmética Natural </span>
+                <h1 class="hero-title">Conexión con la<br><span
+                        class="text-terracota fst-italic">naturaleza</span><br>en tu piel</h1>
+                <p class="lead mb-4">Descubre el poder de los ingredientes botánicos puros. Productos artesanales que
+                    nutren tu piel y respetan el planeta.</p>
+                <div class="d-flex gap-3">
+                    <a href="#productos" class="btn-alma-primary">Descubrir la Colección</a>
+                    <a href="#promociones" class="btn-alma-outline">Conocer Más</a>
+                </div>
+            </div>
+            <div class="col-lg-6 hero-image-container text-center">
+                <!-- IMAGEN HERO -->
+                <img src="{% static 'img/hero.jpg' %}" alt="Cosmética Natural" class="img-fluid w-75"
+                    onerror="this.src='https://placehold.co/800x600?text=Cosmetica+Natural'">
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- 3. PRODUCTOS DESTACADOS -->
+<section id="productos" class="py-5 section-spy">
+    <div class="container">
+        <div class="section-title">
+            <span class="section-subtitle">Nuestra Selección</span>
+            <h2>Productos Destacados</h2>
+            <p class="text-muted">Formulados con ingredientes 100% naturales y procesos artesanales.</p>
+        </div>
+
+        <div class="row g-4" id="products-grid">
+           {% for producto in productos %}
+<div class="col-md-4 product-col mb-4">
+    <article class="product-card h-100">
+
+        <div class="product-image-wrapper">
+            <span class="category-tag">
+                {{ producto.categoria.nombre|default:"Cosmética" }}
+            </span>
+
+            {% if producto.imagen %}
+                <img src="{{ producto.imagen.url }}" 
+                     alt="{{ producto.nombre }}">
+            {% else %}
+                <img src="https://via.placeholder.com/300x250" 
+                     alt="Sin imagen">
+            {% endif %}
+        </div>
+
+        <div class="card-body d-flex flex-column">
+            <h5 class="card-title">
+                {{ producto.nombre }}
+            </h5>
+
+            <p class="small text-muted mb-3">
+                {{ producto.descripcion|truncatechars:100 }}
+            </p>
+            
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+                <span class="price">
+                    ${{ producto.precio }}
+                </span>
+
+                {% if producto.stock > 0 %}
+                    <button 
+                        class="btn btn-sm btn-alma-primary add-to-cart"
+                        onclick="window.agregar({{ producto.id }})">
+                        Agregar
+                    </button>
+                {% else %}
+                    <button 
+                        class="btn btn-sm btn-secondary"
+                        disabled>
+                        Sin stock
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+
+    </article>
+</div>
+{% empty %}
+<p>No hay productos disponibles.</p>
+{% endfor %}
+        </div>
+</section>
+
+<!-- 4. SECCIÓN ENVÍOS -->
+<section id="envios" class="shipping-section section-spy">
+    <div class="container">
+        <div class="section-title text-center mb-5">
+            <span class="section-subtitle">Despacho Nacional</span>
+            <h2>Envíos a Regiones</h2>
+            <p>Llevamos la naturaleza a tu puerta sin importar donde estés en Chile.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="shipping-card">
+                    <div class="shipping-icon"><i class="fas fa-truck"></i></div>
+                    <h5>Envío a Todo Chile</h5>
+                    <p class="small text-muted">Llegamos a todas las regiones con seguimiento real.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="shipping-card">
+                    <div class="shipping-icon"><i class="fas fa-store"></i></div>
+                    <h5>Retiro en Tienda</h5>
+                    <p class="small text-muted">Retira gratis en nuestros puntos de venta.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="shipping-card">
+                    <div class="shipping-icon"><i class="fas fa-clock"></i></div>
+                    <h5>Entrega Rápida</h5>
+                    <p class="small text-muted">24-48 hrs en RM, 3-5 días en regiones.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="shipping-card">
+                    <div class="shipping-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h5>Envío Seguro</h5>
+                    <p class="small text-muted">Todos nuestros productos viajan protegidos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 5. PROMOCIONES -->
+<section id="promociones" class="py-5 section-spy">
+    <div class="container">
+        <div class="section-title text-center mb-5">
+            <h2>Promociones</h2>
+            <p>Aprovecha nuestras ofertas exclusivas y cuida tu piel ahorrando.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="promo-card">
+                    <span class="text-muted small">Nuevos Clientes</span>
+                    <div class="promo-icon"><i class="fas fa-percent"></i></div>
+                    <h3>20% de Descuento</h3>
+                    <p>En tu primera compra con el código <strong>BIENVENIDA20</strong></p>
+                    <a href="#" class="btn-alma-outline btn-sm">Ver Detalles</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="promo-card">
+                    <span class="text-muted small">Por Tiempo Limitado</span>
+                    <div class="promo-icon"><i class="fas fa-gift"></i></div>
+                    <h3>Kit de Regalo</h3>
+                    <p>Llévate un mini sérum gratis en compras sobre $40.000</p>
+                    <a href="#" class="btn-alma-outline btn-sm">Ver Detalles</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="promo-card">
+                    <span class="text-muted small">Solo Este Mes</span>
+                    <div class="promo-icon"><i class="fas fa-star"></i></div>
+                    <h3>2x1 en Mascarillas</h3>
+                    <p>Todas las mascarillas faciales con promoción especial</p>
+                    <a href="#" class="btn-alma-outline btn-sm">Ver Detalles</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="promo-card bg-terracota text-white" style="border:none;">
+                    <span class="small" style="color: #f0e6dc;">Programa de Fidelidad</span>
+                    <div class="promo-icon text-white"><i class="fas fa-heart"></i></div>
+                    <h3>Club El Alma</h3>
+                    <p>Únete y acumula puntos canjeables por productos exclusivos.</p>
+                    <a href="#" class="btn btn-outline-light btn-sm" style="border-radius: 30px;">Unirme Ahora</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

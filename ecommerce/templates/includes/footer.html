@@ -1,0 +1,81 @@
+    <!-- 6. PIE DE PÁGINA (FOOTER) -->
+    <footer>
+        <div class="container">
+             <!-- Se aplica css custom para solucionar alinclear
+              giteacion de imagen y textos (col-base)-->
+            <div class="row gy-4 col-base">
+                <!-- Columna 1: Marca y Newsletter -->
+                <div class="col-lg-4">
+                     <img
+                        src="./assets/img/alma_logo_full.png"
+                        class="img-fluid w-50 mb-3"
+                        alt="logo full"
+                    />
+                    <p class="small text-white-50 mb-4">Cosmética natural de lujo que conecta tu piel con la naturaleza. Productos artesanales elaborados en Chile.</p>
+                   
+                    <h6 class="text-white mb-3">Recibe Ofertas Exclusivas</h6>
+                    <form class="d-flex">
+                        <input type="email" class="form-control newsletter-input" placeholder="Tu email...">
+                        <button type="button" class="btn btn-alma-primary" style="border-radius: 0 5px 5px 0;">Suscribirse</button>
+                    </form>
+                </div>
+
+                <!-- Columna 2: Productos -->
+                <div class="col-lg-2 offset-lg-1 col-6">
+                    <h5>Productos</h5>
+                    <ul>
+                        <li><a href="#">Rostro</a></li>
+                        <li><a href="#">Cuerpo</a></li>
+                        <li><a href="#">Kits de Regalo</a></li>
+                        <li><a href="#">Nuevos Lanzamientos</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 3: Ayuda -->
+                <div class="col-lg-2 col-6">
+                    <h5>Ayuda</h5>
+                    <ul>
+                        <li><a href="#">Preguntas Frecuentes</a></li>
+                        <li><a href="#">Envíos y Despacho</a></li>
+                        <li><a href="#">Devoluciones</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 4: Contacto -->
+                <div class="col-lg-3">
+                    <h5>Contacto</h5>
+                    <ul class="text-white-50 small">
+                        <li><i class="fas fa-envelope me-2"></i> contacto@alma.cl</li>
+                        <li><i class="fas fa-phone me-2"></i> +56 2 1234 5678</li>
+                        <li><i class="fas fa-clock me-2"></i> Lun-Vie 9:00-18:00</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> Santiago, Chile</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="border-secondary my-4">
+            
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="small text-white-50">&copy; 2025 Alma. Todos los derechos reservados.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="small me-3">Términos y Condiciones</a>
+                    <a href="#" class="small">Política de Privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 7. BOTÓN DE AYUDA FLOTANTE -->
+    <div class="fab-container">
+        <div class="fab-options" id="fab-options">
+            <a href="#" class="fab-item" title="WhatsApp"><i class="fab fa-whatsapp text-success"></i></a>
+            <a href="#" class="fab-item" title="Teléfono"><i class="fas fa-phone text-primary"></i></a>
+            <a href="#" class="fab-item" title="Email"><i class="fas fa-envelope text-danger"></i></a>
+        </div>
+        <div class="fab-main" id="fab-main">
+            <i class="fas fa-comment-dots"></i>
+        </div>
+    </div>

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="py-5 mt-5">
+  <div class="container">
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="mb-0">Mis Productos</h2>
+      <a href="{% url 'crear_producto' %}" class="btn btn-alma-primary shadow-sm">
+        <i class="fas fa-plus me-2"></i>Crear Nuevo
+      </a>
+    </div>
+
+    <hr class="mb-5 opacity-25">
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      {% for producto in productos %}
+        <div class="col">
+          <div class="card card-custom h-100 shadow-sm border-0">
+            
+            {% if producto.imagen %}
+              <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}" style="height: 200px; object-fit: cover;">
+            {% else %}
+              <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                <i class="fas fa-box fa-3x text-muted opacity-50"></i>
+              </div>
+            {% endif %}
+
+            <div class="card-body">
+              <h5 class="card-title fw-bold mb-1">{{ producto.nombre }}</h5>
+              <p class="card-text text-verde fs-5 fw-semibold">${{ producto.precio }}</p>
+            </div>
+
+            <div class="card-footer bg-transparent border-0 pb-3 pt-0 d-flex justify-content-between gap-2">
+              <a href="{% url 'editar_producto' producto.pk %}" class="btn btn-outline-secondary btn-sm flex-fill">
+                <i class="fas fa-edit me-1"></i>Editar
+              </a>
+              <a href="{% url 'eliminar_producto' producto.pk %}" class="btn btn-outline-danger btn-sm flex-fill">
+                <i class="fas fa-trash-alt me-1"></i>Eliminar
+              </a>
+            </div>
+
+          </div>
+        </div>
+        
+      {% empty %}
+        <div class="col-12 text-center py-5">
+          <div class="p-5 bg-light rounded-4 border border-dashed">
+            <i class="fas fa-store-slash fa-4x text-muted mb-3"></i>
+            <h4 class="text-muted">No tienes productos aún</h4>
+            <p class="text-muted mb-4">Empieza a agregar productos a tu catálogo para que tus clientes puedan verlos.</p>
+            <a href="{% url 'crear_producto' %}" class="btn btn-alma-primary">
+              <i class="fas fa-plus me-2"></i>Agregar mi primer producto
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+{% endblock %}

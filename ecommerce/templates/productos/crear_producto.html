@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card-custom p-4 p-md-5">
+                <div class="text-center mb-4">
+                    <span class="section-subtitle">Panel de Administración</span>
+                    <h2 class="hero-title fs-2">Crear Nuevo Producto</h2>
+                    <p class="text-muted small">Completa los campos para añadir un producto artesanal a la colección.
+                    </p>
+                </div>
+
+                <form method="POST" enctype="multipart/form-data" class="registration-form-container">
+                    {% csrf_token %}
+
+                    {# Renderizamos el formulario manualmente o con clases para que coincida con el CSS #}
+                    <div class="mb-3">
+                        {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-verde">{{ field.label }}</label>
+
+                            {{ field }}
+                            {% if field.help_text %}
+                            <div class="form-text small">{{ field.help_text }}</div>
+                            {% endif %}
+                            {% for error in field.errors %}
+                            <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn-alma-primary w-100">
+                            <i class="fas fa-plus-circle me-2"></i>Guardar Producto
+                        </button>
+                        <a href="{% url 'dashboard' %}" class="btn-alma-outline text-center">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

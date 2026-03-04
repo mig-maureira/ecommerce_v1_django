@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="hero-section" id="inicio" style="background: url('{% static 'img/img_1.jpg' %}');">
+
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-content text-center text-md-start">
+
+        <h1 class="display-1 fw-bold mb-4 animate-fade-in">
+            Bienvenido
+        </h1>
+
+        <p class="fs-3 mb-4 animate-fade-in text-white" style="animation-delay: 0.2s;"></p>
+
+        <div class="d-flex flex-column flex-sm-row gap-3 animate-fade-in"
+             style="animation-delay: 0.4s;">
+
+            <a class="btn btn-secondary" href="{% url 'vista_permiso' %}">
+                Vista con permiso (decorador)
+            </a>
+
+            <a class="btn btn-secondary" href="{% url 'dashboard_mixin' %}">
+                Dashboard con LoginRequiredMixin
+            </a>
+
+            <a class="btn btn-secondary" href="{% url 'permiso_mixin' %}">
+                Vista con PermissionRequiredMixin
+            </a>
+
+            {% if user.is_authenticated %}
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">
+                    Logout
+                </button>
+            </form>
+            {% else %}
+            <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvaslogin">
+                Inicio de sesión
+            </a>
+            {% endif %}
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

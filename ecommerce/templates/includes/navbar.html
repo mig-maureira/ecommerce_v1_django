@@ -1,0 +1,160 @@
+{% load static %}
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar navbar-expand-lg fixed-top bg-white shadow-sm" id="main-nav">
+    <div class="container">
+
+        <!-- Logo -->
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img class="navbar-brand-img" src="{% static 'img/logo_alma.png' %}" alt="Logo Alma" height="40">
+        </a>
+
+        <!-- Toggle Mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menú Central -->
+        <div class="collapse navbar-collapse justify-content-center" id="navbarContent">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}#inicio">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}#rostro">Rostro</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}#cuerpo">Cuerpo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}#envios">Envíos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}#promociones">Promociones</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Iconos Derecha -->
+        <div class="d-flex align-items-center gap-3">
+
+            <!-- Buscar -->
+            <button class="btn btn-link text-dark p-0" id="search-btn" title="Buscar productos">
+                <i class="fas fa-search fa-lg"></i>
+            </button>
+
+            <!-- Carrito -->
+            <button class="btn btn-link text-dark p-0 position-relative" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#cartOffcanvas" title="Ver carrito">
+                <i class="fas fa-shopping-bag fa-lg"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                    id="cart-counter">
+                    0
+                </span>
+            </button>
+
+            <!-- Usuario -->
+            {% if request.user.is_authenticated %}
+            <div class="dropdown">
+                <button class="btn btn-link text-dark p-0 dropdown-toggle" data-bs-toggle="dropdown">
+                    {% if request.user.profile.imagen %}
+                    <img src="{{ request.user.profile.imagen.url }}" alt="Avatar"
+                        class="rounded-circle img-fluid border border-4 border-white shadow-sm"
+                        style="width: 50px; height: 50px; object-fit: cover;">
+                    {% else %}
+                    <i class="fas fa-user fa-lg"></i>
+                    {% endif %}
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow">
+                    <li class="dropdown-item-text">
+                        👋 {{ request.user.username }}
+                    </li>
+                                        <li class="dropdown-item-text">
+                        <a class="dropdown-item" href="{% url 'dashboard' %}"> Mi perfil</a>
+                    </li>
+
+                    {% if request.user.is_superuser %}
+                    <li>
+                        <a class="dropdown-item" href="{% url 'admin:index' %}">
+                            Panel Admin
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    <li>
+                        <form method="POST" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="dropdown-item">
+                                Cerrar sesión
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            {% else %}
+            <a class="btn btn-link text-dark p-0" data-bs-toggle="offcanvas" href="#offcanvaslogin" role="button"
+                aria-controls="offcanvaslogin" title="Iniciar sesión">
+                <i class="fas fa-user fa-lg"></i>
+            </a>
+            {% endif %}
+
+        </div>
+    </div>
+</nav>
+<!-- OFF CANVAS -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvaslogin" aria-labelledby="offcanvasloginLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasloginLabel">Offcanvas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Usuario</label>
+                <input type="text" name="username" class="form-control" id="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" name="password" class="form-control" id="password" required>
+            </div>
+            <button type="submit" class="btn btn-alma-primary  w-100 mb-3">Entrar</button>
+        </form>
+
+        <p>¿No tienes cuenta? <a href="{% url 'register' %}">Regístrate</a></p>
+
+    </div>
+</div>
+
+
+
+<!-- 8. OFFCANVAS CARRITO DE COMPRAS -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="cartOffcanvasLabel"><i class="fas fa-shopping-bag me-2"></i>Tu Carrito</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <!-- Contenedor dinámico de items -->
+        <div id="cart-items-container">
+            <div class="text-center py-5 text-muted">
+                <i class="fas fa-leaf fa-3x mb-3" style="opacity: 0.3;"></i>
+                <p>Tu carrito está vacío</p>
+                <button class="btn btn-sm btn-alma-outline mt-2" data-bs-dismiss="offcanvas">Seguir Comprando</button>
+            </div>
+        </div>
+    </div>
+    <div class="offcanvas-footer p-3 border-top bg-light">
+        <div class="d-flex justify-content-between mb-3 align-items-end">
+            <span class="text-muted">Total:</span>
+            <strong class="fs-4 text-terracota" id="cart-total">$0</strong>
+        </div>
+        <a href="{% url 'pago' %}">
+        <button class="btn btn-alma-primary w-100 py-2">Finalizar Compra</button></a>
+    </div>
+</div>
+
+
+<!-- Espacio para compensar navbar fixed -->
+<div style="height: 80px;"></div>

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+<div class="container confirmation-container d-flex align-items-center justify-content-center">
+    <div class="card card-custom text-center p-4 p-md-5">
+
+        <!-- Icono de Éxito -->
+        <div class="icon-circle">
+            <!-- Icono Check de Lucide -->
+            <i data-lucide="check" style="color: white; width: 40px; height: 40px;"></i>
+        </div>
+        {% if request.user.is_authenticated %}
+
+        <h1 class="mb-3" style="color: var(--color-primary); font-weight: bold;">
+            ¡Gracias {{ request.user.first_name }} por tu compra!
+        </h1>
+
+        <p class="lead mb-4">
+            {{ request.user.first_name }}, tu pedido ha sido procesado con éxito y se está preparando.
+        </p>
+
+        {% else %}
+
+        <h1 class="mb-3" style="color: var(--color-primary); font-weight: bold;">
+            ¡Gracias por tu compra!
+        </h1>
+
+        <p class="lead mb-4">
+            Tu pedido ha sido procesado con éxito y se está preparando.
+        </p>
+
+        {% endif %}
+        <!-- Mensaje de Confirmación -->
+
+        <!-- Detalles del Pedido -->
+        <div class="p-3 bg-light rounded mb-4 text-start">
+            <h5 class="mb-3" style="color: var(--color-primary);">Resumen del Pedido</h5>
+            <p class="mb-1 small"><strong>Número de Pedido:</strong> <span class="float-end">#ALM-836291</span></p>
+            <p class="mb-1 small"><strong>Fecha de Compra:</strong> <span class="float-end">15 de Septiembre,
+                    2025</span></p>
+            <p class="mb-0 small"><strong>Total Pagado:</strong> <span class="float-end">$98.50 USD</span></p>
+        </div>
+        {% if request.user.is_authenticated %}
+        <p class="mb-4">
+            Recibirás un correo electrónico a {{ request.user.email }} con los detalles y el número de seguimiento en
+            breve.
+        </p>
+        {% else %}
+        <p class="mb-4">
+            Recibirás un correo electrónico de confirmación con los detalles y el número de seguimiento en breve.
+        </p>
+        {% endif %}
+        <!-- Botones de Acción -->
+        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center mb-4">
+            <a href="{% url 'index' %}" class="btn btn-custom-primary text-uppercase">
+                Continuar Comprando
+            </a>
+            <a href="{% url 'index' %}#cartOffcanvas" class="btn btn-custom-secondary text-uppercase">
+                Ver Detalles del Pedido
+            </a>
+        </div>
+
+        <!-- Enlaces Adicionales (Imitando la navegación)
+        <div class="footer-links small">
+            <a href="#" class="mx-2">Rastrea tu pedido</a> |
+            <a href="#" class="mx-2">Contacto.</a>
+        </div> -->
+
+    </div>
+</div>
+
+{% endblock %}
